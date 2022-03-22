@@ -14,6 +14,7 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 	public typealias Section = ASTableViewSection<SectionID>
 
 	public typealias OnScrollCallback = ((_ contentOffset: CGPoint, _ contentSize: CGSize) -> Void)
+    public typealias OnScrollWillEndDraggingCallback = ((_ scrollView: UIScrollView, _ velocity: CGPoint, _ targetContentOffset: UnsafeMutablePointer<CGPoint>) -> Void)
 	public typealias OnReachedBottomCallback = (() -> Void)
 
 	// MARK: Key variables
@@ -25,6 +26,7 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 	// MARK: Private vars set by public modifiers
 
 	internal var onScrollCallback: OnScrollCallback?
+    internal var onScrollWillEndDraggingCallback: OnScrollWillEndDraggingCallback?
 	internal var onReachedBottomCallback: OnReachedBottomCallback?
 
 	internal var scrollPositionSetter: Binding<ASTableViewScrollPosition?>?
@@ -794,6 +796,11 @@ public struct ASTableView<SectionID: Hashable>: UIViewControllerRepresentable, C
 			parent.onScrollCallback?(scrollView.contentOffset, scrollView.contentSizePlusInsets)
 			checkIfReachedBottom(scrollView)
 		}
+        
+        public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+        {
+            parent.onScrollWillEndDraggingCallback?(scrollView, velocity, targetContentOffset)
+        }
 
 		var hasAlreadyReachedBottom: Bool = false
 		func checkIfReachedBottom(_ scrollView: UIScrollView)

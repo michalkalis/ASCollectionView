@@ -15,6 +15,13 @@ public extension ASTableView
 		this.onScrollCallback = onScroll
 		return this
 	}
+    
+    /// Set a closure that is called whenever the tableView is will end dragging gesture
+    func onScrollWillEndDragging(_ onScrollWillEndDragging: @escaping OnScrollWillEndDraggingCallback) -> Self {
+        var this = self
+        this.onScrollWillEndDraggingCallback = onScrollWillEndDragging
+        return this
+    }
 
 	/// Set a closure that is called whenever the tableView is scrolled to the bottom.
 	/// This is useful to enable loading more data when scrolling to bottom
