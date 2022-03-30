@@ -11,7 +11,7 @@ public struct ASCollectionView<SectionID: Hashable>: UIViewControllerRepresentab
 	public typealias Section = ASCollectionViewSection<SectionID>
 	public typealias Layout = ASCollectionLayout<SectionID>
 
-	public typealias OnScrollCallback = ((_ contentOffset: CGPoint, _ contentSize: CGSize) -> Void)
+    public typealias OnScrollCallback = ((_ scrollView: UIScrollView) -> Void)
 	public typealias OnReachedBoundaryCallback = ((_ boundary: Boundary) -> Void)
 
 	// MARK: Key variables
@@ -926,7 +926,7 @@ extension ASCollectionView.Coordinator
 {
 	func scrollViewDidScroll(_ scrollView: UIScrollView)
 	{
-		parent.onScrollCallback?(scrollView.contentOffset, scrollView.contentSizePlusInsets)
+		parent.onScrollCallback?(scrollView)
 		checkIfReachedBoundary(scrollView)
 	}
 
