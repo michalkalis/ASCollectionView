@@ -71,6 +71,7 @@ internal class ASHostingController<ViewType: View>: ASHostingControllerProtocol
 		set
 		{
 			uiHostingController.rootView.content = newValue
+            uiHostingController.view.invalidateIntrinsicContentSize()
 		}
 	}
 

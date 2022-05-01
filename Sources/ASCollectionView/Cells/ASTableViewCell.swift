@@ -35,10 +35,10 @@ class ASTableViewCell: UITableViewCell, ASDataSourceConfigurableCell
 	{
 		didSet
 		{
-			if tableViewController != oldValue
+            if tableViewController != oldValue
 			{
-				hostingController.viewController.didMove(toParent: tableViewController)
-				tableViewController?.addChild(hostingController.viewController)
+                tableViewController?.addChild(hostingController.viewController)
+                hostingController.viewController.didMove(toParent: tableViewController)
 			}
 		}
 	}
